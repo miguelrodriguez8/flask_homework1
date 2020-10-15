@@ -3,3 +3,4 @@
 """Main App File"""
 
 from app import app
+
