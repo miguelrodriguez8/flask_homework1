@@ -21,6 +21,27 @@ def get_all_users():
     cursor.close()
     return results
 
+def create_user():
+    cursor = get_db().execute("Insert user", ())
+    results = cursor
+    cursor.close()
+    return results
+
+def update_user():
+    cursor = get_db().execute("Update the user", ())
+    results = cursor
+    cursor.close()
+    return results
+
+def delete_user():
+    cursor = get_db().execute("Delete from user", ())
+    results = cursor
+    cursor.close()
+    return results
+
+
+
+
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -41,6 +62,7 @@ def aboutme():
         "last_name": "RODZ",
         "hobbies": "Mountain bike"
     }
+    return user
     
 
 
@@ -101,13 +123,24 @@ def get_users():
             body_list.append(temp_dict)
         out["body"] = body_list
         return render_template(
-            "base.html",
+            "about_me.html",
             first_name=out["body"][0].get("first_name"),
             last_name=out["body"][0].get("last_name"),
             hobbies=out["body"][0].get("hobbies"),
             )
     if "POST" in request.method:
+        create_user()
         pass
     if "PUT" in request.method:
+        update_user()
         pass
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
+@app.errorhandler(500)
+def server_error(e):
+    return render_template("500.html"), 500
  
