@@ -1,0 +1,6 @@
+.vs-code/*
+venv/*
+*.pyc
+.env
+__pycache__/*
+hello_there/*
